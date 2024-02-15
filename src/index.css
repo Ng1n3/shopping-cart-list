@@ -105,6 +105,11 @@ h1 {
 .selected {
   text-decoration: line-through;
   font-style: italic;
+  
+}
+
+li:hover {
+  cursor: pointer
 }
 
 .footer {

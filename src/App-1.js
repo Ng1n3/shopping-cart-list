@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { createPortal } from "react-dom";
 
 // const initalTodos = [
 //   { id: 1, item: "Sony Play Station 5", total: 1 },
@@ -14,7 +13,6 @@ function App() {
 function Todo() {
   const [name, setName] = useState("");
   const [carts, setcarts] = useState([]);
-
 
   function handleAddcart(cart) {
     setcarts((prevcart) => [...prevcart, cart]);
@@ -63,13 +61,11 @@ function Todo() {
               cart={cart}
               key={cart.id}
               onCross={() => handleCross(cart.id)}
-              // count={count}
-              // setCount={setCount}
             />
           ))}
         </ul>
       </div>
-      <Footer carts={carts}/>
+      <Footer carts={carts} />
     </>
   );
 }
@@ -109,16 +105,14 @@ function TodoItem({ cart, onCross }) {
 }
 
 function Footer({ carts }) {
-  const remainingItems = carts.filter((cart) => !cart.selected);
-  // const cartTotals = remainingItems.reduce((total, cart) => total + cart.total + cart.count, 0);
-  console.log(carts.count);
-  // const totals = cartTotals + count
-  // console.log(carts);
+  const remainingItems = carts.filter((cart) => !cart.selected).length;
+  const cartTotals = carts.reduce((total, cart) => total + cart.total + cart.count, 0);
+  console.log(carts);
   // console.log(remainingItems)
   return (
     <div className="footer">
-      {remainingItems.length >= 1 ? (
-        <p>You have {remainingItems.length} item(s) in your cart.</p>
+      {remainingItems >= 1 ? (
+        <p>You have {remainingItems} item(s) in your cart.</p>
       ) : (
         <p>You don't have any item in your cart</p>
       )}
