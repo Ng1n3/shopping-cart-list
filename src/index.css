@@ -74,8 +74,10 @@ input:focus {
   padding: 7px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   border: 1px solid #fff;
   border-radius: 5px;
+  transition: all .2s;
 }
 
 h1 {
@@ -100,6 +102,14 @@ h1 {
 .item h3 {
   font-size: 13px;
   color: #fff;
+}
+
+.item .bin-icon {
+  color: #ff9999;
+}
+
+.item .bin-icon:hover {
+  transform: scale(1.15);
 }
 
 .selected {

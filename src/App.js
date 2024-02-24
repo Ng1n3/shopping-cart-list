@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { createPortal } from "react-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDumpster } from '@fortawesome/free-solid-svg-icons';
+import { library } from '@fortawesome/fontawesome-svg-core';
+
+library.add(faDumpster);
 
 // const initalTodos = [
 //   { id: 1, item: "Sony Play Station 5", total: 1 },
@@ -18,6 +22,10 @@ function Todo() {
 
   function handleAddcart(cart) {
     setcarts((prevcart) => [...prevcart, cart]);
+  }
+
+  function handleDelete(id) {
+      setcarts((prevcart) => prevcart.filter((cart) => cart.id !== id))
   }
 
   const id = crypto.randomUUID();
@@ -63,8 +71,7 @@ function Todo() {
               cart={cart}
               key={cart.id}
               onCross={() => handleCross(cart.id)}
-              // count={count}
-              // setCount={setCount}
+              onDelete={handleDelete}
             />
           ))}
         </ul>
@@ -74,7 +81,7 @@ function Todo() {
   );
 }
 
-function TodoItem({ cart, onCross }) {
+function TodoItem({ cart, onCross, onDelete }) {
   const [count, setCount] = useState(0);
 
   function handleCountIncrement(e) {
@@ -96,6 +103,7 @@ function TodoItem({ cart, onCross }) {
         onClick={onCross}
       >
         <h3>{cart.item}</h3>
+        <FontAwesomeIcon icon="fa-solid fa-dumpster" className="bin-icon" onClick={() => onDelete(cart.id)}/>
         {cart.selected ? null : (
           <div>
             <button onClick={handleCountDecrement}>-</button>
@@ -110,11 +118,7 @@ function TodoItem({ cart, onCross }) {
 
 function Footer({ carts }) {
   const remainingItems = carts.filter((cart) => !cart.selected);
-  // const cartTotals = remainingItems.reduce((total, cart) => total + cart.total + cart.count, 0);
   console.log(carts.count);
-  // const totals = cartTotals + count
-  // console.log(carts);
-  // console.log(remainingItems)
   return (
     <div className="footer">
       {remainingItems.length >= 1 ? (
